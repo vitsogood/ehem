@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VITSOGOOD</title>
+    <style>
+        /* Hide the container by default */
+        #cameraContainer {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            background-color: white;
+            height: 400px;
+            width: 520px;
+            border-radius: 5px;
+            box-shadow: 0px 2px 4px rgba(255, 255, 255, 0.5); /* White shadow */
+        }
+
+        body {
+            background-color: #202124;
+            color: white;
+        }
+
+        /* Container for label and button */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            height: 100vh; /* Ensure the container takes the full height of the viewport */
+            
+        }
+
+        /* Label style */
+        label {
+            text-align: center;
+            margin-bottom: 20px; /* Space between label and button */
+        }
+
+        /* Button style */
+        #startButton {
+            padding: 10px 20px;
+            background-color: #B4B5B6; /* Gray */
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0px 2px 4px rgba(255, 255, 255, 0.5); /* White shadow */
+            transition: background-color 0.3s, box-shadow 0.3s; /* Transition for background color and shadow */
+        }
+
+        /* Center the video element */
+        #webCam {
+            display: block;
+            margin: 0 auto;
+            border-radius: 5px;
+        }
+
+        /* Center the button */
+        #startButton {
+            display: block;
+            margin: 20px auto; /* Adjust margin as needed */
+        }
+    </style>
+    <link rel="stylesheet" href="style.css">
+    <!-- Corrected script reference -->
+    <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
+</head>
+<body>
+    <!-- Container div for centering -->
+    <div id="cameraContainer">
+        <div>
+            <video id="webCam" autoplay playsinline width="500" height="400"></video>
+        </div>
+    </div>
+
+    <div class="container">
+        <label id="labelText" for="">Do you want to see who's more beautiful than you?</label>
+        <button id="startButton">CLICK ME</button>
+    </div>
+    
+    <canvas id="canvas"></canvas>
+
+    <script>
+        // Wait for the DOM content to load
+        document.addEventListener('DOMContentLoaded', function () {
+            const webCamElement = document.getElementById("webCam");
+            const canvasElement = document.getElementById("canvas");
+            const startButton = document.getElementById("startButton");
+            const cameraContainer = document.getElementById("cameraContainer");
+            const labelText = document.getElementById("labelText");
+
+            // Function to start the camera and show the container
+            function startCamera() {
+                const webcam = new Webcam(webCamElement, "user", canvasElement);
+                webcam.start();
+                // Show the camera container
+                cameraContainer.style.display = "block";
+                // Hide the start button after starting the camera
+                startButton.style.display = "none";
+                // Change the label text
+                labelText.textContent = "Nothing, only you and no one else";
+            }
+
+            // Attach click event listener to the start button
+            startButton.addEventListener('click', startCamera);
+        });
+    </script>
+</body>
+</html>
